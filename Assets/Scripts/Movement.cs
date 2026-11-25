@@ -38,15 +38,15 @@ public class Movement : MonoBehaviour
     // LayerMask markerar flera lager på spel objektet
     // groundCheck = känner av när du står på marken
     [SerializeField] private Transform groundCheck;
-    // 
+    // groundLayerMask = 
     [SerializeField] private LayerMask groundLayerMask;
-    // 
+    // groundCheckRadius = 
     [SerializeField] private float groundCheckRadius = 0.2f;
-    // 
+    // groundCheckDistance = 
     [SerializeField] private float groundCheckDistance = 0.1f;
 
     // Components
-    // Rigidbody 
+    // Rigidbody gör så att man kan lägga till fysik i ett objekt som gravitation, krafter, kollidation etc.
     private Rigidbody rb;
 
     // movement state 
@@ -191,6 +191,9 @@ public class Movement : MonoBehaviour
         if (rb.linearVelocity.magnitude < 8)
         {
             //
+            Vector3 movementForward = transform.forward * vert;
+            Vector3 movementSideways = transform.right * horz;
+            movementDir = (movementForward + movementSideways).normalized;
             rb.AddForce(movementDir * MoveSpeed * Time.deltaTime);
         }
         
